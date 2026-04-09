@@ -9,7 +9,7 @@ struct SettingsView: View {
                 } header: {
                     Text("About")
                 } footer: {
-                    Text("MET (My English Teacher) uses the Kimi API with a key embedded in the app for all users.")
+                    Text("MET uses the Kimi API. The Moonshot API key is read from Secrets.plist at launch (kept out of git; see Secrets.example.plist).")
                 }
             }
             .navigationTitle("Settings")

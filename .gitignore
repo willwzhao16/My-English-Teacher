@@ -3,3 +3,6 @@ DerivedData/
 build/
 *.xcuserstate
 xcuserdata/
+
+# Local Moonshot credentials (copy from Secrets.example.plist)
+MET/MET/Secrets.plist

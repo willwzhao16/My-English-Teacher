@@ -16,9 +16,11 @@
 		A10000000000000000000007 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000007 /* Models.swift */; };
 		A10000000000000000000008 /* AIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000008 /* AIClient.swift */; };
 		A10000000000000000000009 /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000009 /* LocalStore.swift */; };
-		A1000000000000000000000D /* EmbeddedConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000D /* EmbeddedConfig.swift */; };
+		A1000000000000000000000D /* SecretsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000D /* SecretsStore.swift */; };
+		A1000000000000000000000E /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000F /* Secrets.plist */; };
 		A1000000000000000000000C /* MoonshotConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000C /* MoonshotConfig.swift */; };
 		A1000000000000000000000B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000B /* Assets.xcassets */; };
+		F30000000000000000000003 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = F30000000000000000000002 /* OpenAI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +34,9 @@
 		B10000000000000000000007 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		B10000000000000000000008 /* AIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIClient.swift; sourceTree = "<group>"; };
 		B10000000000000000000009 /* LocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStore.swift; sourceTree = "<group>"; };
-		B1000000000000000000000D /* EmbeddedConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedConfig.swift; sourceTree = "<group>"; };
+		B1000000000000000000000D /* SecretsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsStore.swift; sourceTree = "<group>"; };
+		B1000000000000000000000E /* Secrets.example.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.example.plist; sourceTree = "<group>"; };
+		B1000000000000000000000F /* Secrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		B1000000000000000000000C /* MoonshotConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonshotConfig.swift; sourceTree = "<group>"; };
 		B1000000000000000000000B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -42,10 +46,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30000000000000000000003 /* OpenAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E20000000000000000000001 /* Ensure Secrets.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Ensure Secrets.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${SRCROOT}/MET/Secrets.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SECRETS_DIR=\"${SRCROOT}/MET\"\nEXAMPLE=\"${SECRETS_DIR}/Secrets.example.plist\"\nOUT=\"${SECRETS_DIR}/Secrets.plist\"\nif [ ! -f \"$OUT\" ]; then\n  /bin/cp \"$EXAMPLE\" \"$OUT\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXGroup section */
 		D10000000000000000000003 = {
@@ -76,7 +104,9 @@
 				B10000000000000000000007 /* Models.swift */,
 				B10000000000000000000008 /* AIClient.swift */,
 				B10000000000000000000009 /* LocalStore.swift */,
-				B1000000000000000000000D /* EmbeddedConfig.swift */,
+				B1000000000000000000000D /* SecretsStore.swift */,
+				B1000000000000000000000E /* Secrets.example.plist */,
+				B1000000000000000000000F /* Secrets.plist */,
 				B1000000000000000000000C /* MoonshotConfig.swift */,
 				B1000000000000000000000B /* Assets.xcassets */,
 			);
@@ -90,6 +120,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D10000000000000000000007 /* Build configuration list for PBXNativeTarget "MET" */;
 			buildPhases = (
+				E20000000000000000000001 /* Ensure Secrets.plist */,
 				D10000000000000000000001 /* Sources */,
 				D10000000000000000000002 /* Frameworks */,
 				D10000000000000000000008 /* Resources */,
@@ -99,6 +130,9 @@
 			dependencies = (
 			);
 			name = MET;
+			packageProductDependencies = (
+				F30000000000000000000002 /* OpenAI */,
+			);
 			productName = MET;
 			productReference = C10000000000000000000001 /* MET.app */;
 			productType = "com.apple.product-type.application";
@@ -121,6 +155,9 @@
 			buildConfigurationList = D1000000000000000000000A /* Build configuration list for PBXProject "MET" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
+			packageReferences = (
+				F30000000000000000000001 /* XCRemoteSwiftPackageReference "OpenAI" */,
+			);
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -141,6 +178,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000000000000000000000E /* Secrets.plist in Resources */,
 				A1000000000000000000000B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -161,7 +199,7 @@
 				A10000000000000000000007 /* Models.swift in Sources */,
 				A10000000000000000000008 /* AIClient.swift in Sources */,
 				A10000000000000000000009 /* LocalStore.swift in Sources */,
-				A1000000000000000000000D /* EmbeddedConfig.swift in Sources */,
+				A1000000000000000000000D /* SecretsStore.swift in Sources */,
 				A1000000000000000000000C /* MoonshotConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,7 +244,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -269,7 +307,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -314,7 +352,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.10;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -345,12 +383,31 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.10;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F30000000000000000000001 /* XCRemoteSwiftPackageReference "OpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MacPaw/OpenAI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F30000000000000000000002 /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F30000000000000000000001 /* XCRemoteSwiftPackageReference "OpenAI" */;
+			productName = OpenAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCConfigurationList section */
 		D1000000000000000000000A /* Build configuration list for PBXProject "MET" */ = {
